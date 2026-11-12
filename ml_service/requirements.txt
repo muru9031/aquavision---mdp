@@ -1,0 +1,16 @@
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+httpx==0.27.2
+numpy==1.26.4
+python-dateutil==2.9.0
+pydantic==2.8.2
+
+# Uncomment as you integrate real models:
+# torch==2.4.0
+# tensorflow==2.16.0
+# xgboost==2.1.1
+# shap==0.46.0
+# scikit-learn==1.5.1
+# joblib==1.4.2
+# pandas==2.2.2
+

@@ -1,0 +1,15 @@
+// src/api.js
+import axios from 'axios';
+
+const API = axios.create({
+  baseURL: 'http://localhost:8080/api',
+  timeout: 10000,
+  headers: { 'Content-Type': 'application/json' },
+});
+
+export const getDashboardStats = () => API.get('/dashboard/stats').then(res => res.data);
+export const getWells = () => API.get('/wells').then(res => res.data);
+export const getWellForecast = (wellId = 1) => API.get(`/wells/${wellId}/forecast`).then(res => res.data);
+export const getWellShap = (wellId = 1) => API.get(`/wells/${wellId}/shap`).then(res => res.data);
+
+export default API;
