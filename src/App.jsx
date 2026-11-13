@@ -11,7 +11,8 @@ import CurrentOperations from './pages/CurrentOperations';
 import PredictiveIntelligence from './pages/PredictiveIntelligence';
 import CurrentAnalytics from './pages/CurrentAnalytics';
 import PredictiveAnalytics from './pages/PredictiveAnalytics';
-import GisMapsPage from './pages/GisMapsPage';
+import CurrentMapFull from './pages/CurrentMapFull';
+import PredictionMapFull from './pages/PredictionMapFull';
 import ShapAnalyticsPage from './pages/ShapAnalyticsPage';
 import ReportsPage from './pages/ReportsPage';
 import SettingsPage from './pages/SettingsPage';
@@ -35,7 +36,7 @@ function AppLayout() {
             {/* ── CURRENT MODE ROUTES ── */}
             <Route path="/current" element={<Navigate to="/current/dashboard" replace />} />
             <Route path="/current/dashboard" element={<CurrentOperations />} />
-            <Route path="/current/map" element={<GisMapsPage />} />
+            <Route path="/current/map" element={<CurrentMapFull />} />
             <Route path="/current/analytics" element={<CurrentAnalytics />} />
             <Route path="/current/shap" element={<ShapAnalyticsPage />} />
             <Route path="/current/reports" element={<ReportsPage />} />
@@ -43,7 +44,7 @@ function AppLayout() {
             {/* ── PREDICTION MODE ROUTES ── */}
             <Route path="/prediction" element={<Navigate to="/prediction/dashboard" replace />} />
             <Route path="/prediction/dashboard" element={<PredictiveIntelligence />} />
-            <Route path="/prediction/map" element={<PredictiveIntelligence />} />
+            <Route path="/prediction/map" element={<PredictionMapFull />} />
             <Route path="/prediction/analytics" element={<PredictiveAnalytics />} />
             <Route path="/prediction/shap" element={<ShapAnalyticsPage />} />
 

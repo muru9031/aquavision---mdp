@@ -1,6 +1,6 @@
 // src/pages/CurrentOperations.jsx
 import React, { useState, useEffect } from 'react';
-import { getDashboardStats, getWells, getRainfallCorrelation } from '../api';
+import { getDashboardStats, getLiveWellStatus, getRainfallCorrelation } from '../api';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import { 
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
@@ -32,7 +32,7 @@ export default function CurrentOperations() {
     setLoading(true);
     Promise.all([
       getDashboardStats(),
-      getWells(),
+      getLiveWellStatus(),
       getRainfallCorrelation(selectedWellId)
     ]).then(([statsRes, wellsRes, corrRes]) => {
       setStats(statsRes);

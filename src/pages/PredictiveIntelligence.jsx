@@ -1,6 +1,6 @@
 // src/pages/PredictiveIntelligence.jsx
 import React, { useState, useEffect } from 'react';
-import { getWells, getWellForecast, getWellShap } from '../api';
+import { getPredictedWellStatus, getWellForecast, getWellShap } from '../api';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, 
@@ -26,7 +26,7 @@ export default function PredictiveIntelligence() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    getWells().then(data => setWells(data)).catch(console.error);
+    getPredictedWellStatus().then(data => setWells(data)).catch(console.error);
   }, []);
 
   useEffect(() => {

@@ -96,6 +96,71 @@ public class AquaVisionController {
         return ResponseEntity.ok(response);
     }
 
+    // 2a. GET /api/wells/current (Strictly Live Observed Telemetry for Current Map)
+    @GetMapping({"/wells/current", "/wells/live"})
+    public ResponseEntity<List<Map<String, Object>>> getLiveWellStatus() {
+        List<Well> wells = wellRepo.findAll();
+        List<Map<String, Object>> response = new ArrayList<>();
+
+        for (Well w : wells) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", w.getId());
+            map.put("name", w.getName());
+            map.put("zone", w.getZone());
+            map.put("latitude", w.getLatitude().doubleValue());
+            map.put("longitude", w.getLongitude().doubleValue());
+            map.put("currentLevel", w.getCurrentLevel().doubleValue());
+            map.put("waterLevel", w.getCurrentLevel().doubleValue());
+            map.put("status", w.getStatus().name());
+            map.put("currentStatus", w.getStatus().name());
+            map.put("mode", "CURRENT");
+            response.add(map);
+        }
+        return ResponseEntity.ok(response);
+    }
+
+    // 2b. GET /api/wells/predictions (Strictly 6-Month Forecast for Prediction Map)
+    @GetMapping("/wells/predictions")
+    public ResponseEntity<List<Map<String, Object>>> getPredictedWellStatus() {
+        List<Well> wells = wellRepo.findAll();
+        List<Map<String, Object>> response = new ArrayList<>();
+
+        for (Well w : wells) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", w.getId());
+            map.put("name", w.getName());
+            map.put("zone", w.getZone());
+            map.put("latitude", w.getLatitude().doubleValue());
+            map.put("longitude", w.getLongitude().doubleValue());
+            map.put("currentLevel", w.getCurrentLevel().doubleValue());
+
+            List<Prediction> preds = predRepo.findByWellIdOrderByForecastDateAsc(w.getId());
+            if (!preds.isEmpty()) {
+                Prediction lastPred = preds.get(preds.size() - 1);
+                double predictedDepth = lastPred.getPredictedLevel().doubleValue();
+                map.put("predictedLevel", predictedDepth);
+                map.put("waterLevel", predictedDepth);
+                String predStatus = predictedDepth >= 22.0 ? "CRITICAL"
+                                  : predictedDepth >= 18.0 ? "VULNERABLE"
+                                  : "SAFE";
+                map.put("status", predStatus);
+                map.put("predictedStatus", predStatus);
+                map.put("forecastDate", lastPred.getForecastDate().toString());
+            } else {
+                double simulatedDepth = Math.round((w.getCurrentLevel().doubleValue() + 2.2) * 10.0) / 10.0;
+                map.put("predictedLevel", simulatedDepth);
+                map.put("waterLevel", simulatedDepth);
+                String predStatus = simulatedDepth >= 22.0 ? "CRITICAL" : simulatedDepth >= 18.0 ? "VULNERABLE" : "SAFE";
+                map.put("status", predStatus);
+                map.put("predictedStatus", predStatus);
+                map.put("forecastDate", "2027-05-01");
+            }
+            map.put("mode", "PREDICTION");
+            response.add(map);
+        }
+        return ResponseEntity.ok(response);
+    }
+
     // 3. GET /api/wells/{wellId}/forecast (Seamless Continuous Unified Time-Series)
     @GetMapping({"/wells/{wellId}/forecast", "/v1/timeseries/{wellId}"})
     public ResponseEntity<List<Map<String, Object>>> getWellForecast(@PathVariable Long wellId) {
