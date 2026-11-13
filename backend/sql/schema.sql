@@ -66,15 +66,15 @@ CREATE TABLE predictions (
 ) ENGINE=InnoDB;
 
 -- -------------------------------------------------------
--- SEED DATA — representative dummy rows
+-- SEED DATA — Tamil Nadu, India Monitoring Borewells
 -- -------------------------------------------------------
-INSERT INTO wells (name, zone, latitude, longitude, status, current_level, installation_date) VALUES
-  ('Well Alpha-1',   'Zone A',  34.0500, -118.2500, 'SAFE',       16.5,  '2019-03-10'),
-  ('Well Beta-2',    'Zone B',  34.0200, -118.1500, 'VULNERABLE',  18.2, '2020-07-22'),
-  ('Well Gamma-3',   'Zone A',  34.0800, -118.3500, 'CRITICAL',    22.1, '2018-11-05'),
-  ('Well Delta-4',   'Zone C',  33.9500, -118.0500, 'SAFE',        14.8, '2021-01-15'),
-  ('Well Epsilon-5', 'Zone A',  34.1200, -118.1000, 'CRITICAL',    23.5, '2017-06-30'),
-  ('Well Zeta-6',    'Zone B',  34.1500, -118.4000, 'VULNERABLE',  19.9, '2022-04-18');
+INSERT INTO wells (id, name, zone, latitude, longitude, status, current_level, installation_date) VALUES
+  (1, 'Coimbatore Central',  'Zone West',    11.0168, 76.9558, 'SAFE',       16.5, '2019-03-10'),
+  (2, 'Chennai Metro Basin',  'Zone North',   13.0827, 80.2707, 'VULNERABLE', 18.2, '2020-07-22'),
+  (3, 'Madurai Vaigai Aquifer','Zone South',   9.9252,  78.1198, 'CRITICAL',   22.1, '2018-11-05'),
+  (4, 'Salem Industrial Hub', 'Zone Central', 11.6643, 78.1460, 'SAFE',       14.8, '2021-01-15'),
+  (5, 'Trichy Cauvery Basin', 'Zone Central', 10.7905, 78.7047, 'CRITICAL',   23.5, '2017-06-30'),
+  (6, 'Tirunelveli South',    'Zone South',   8.7139,  77.7567, 'VULNERABLE', 19.9, '2022-04-18');
 
 INSERT INTO groundwater_data (well_id, recorded_date, rainfall, temperature, water_level, extraction_rate) VALUES
   (1, '2026-01-01', 12.5, 18.2, 16.5, 450.0),

@@ -11,5 +11,7 @@ export const getDashboardStats = () => API.get('/dashboard/stats').then(res => r
 export const getWells = () => API.get('/wells').then(res => res.data);
 export const getWellForecast = (wellId = 1) => API.get(`/wells/${wellId}/forecast`).then(res => res.data);
 export const getWellShap = (wellId = 1) => API.get(`/wells/${wellId}/shap`).then(res => res.data);
+export const getRainfallCorrelation = (wellId = 1) => API.get(`/analytics/correlation/${wellId}`).then(res => res.data);
+export const askChatbot = (query) => API.post('/chat/ask', { query }).then(res => res.data);
 
 export default API;
